@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/wall.yml'
-      - '.github/diy/main.sh'
+      - '.github/diy/master.sh'
   schedule:
     - cron: 0 */8 * * *
   repository_dispatch:
