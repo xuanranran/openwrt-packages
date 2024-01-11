@@ -107,7 +107,6 @@ cfg_new_servers_groups_check()
 cfg_group_name()
 {
    local section="$1"
-   local name config
    config_get "name" "$section" "name" ""
    config_get "config" "$section" "config" ""
 
@@ -150,7 +149,6 @@ LOG_OUT "Start Getting【$CONFIG_NAME】Proxy-providers Setting..."
 yml_provider_name_get()
 {
    local section="$1"
-   local name config
    config_get "name" "$section" "name" ""
    config_get "config" "$section" "config" ""
    if [ -n "$name" ] && [ "$config" = "$CONFIG_NAME" ]; then
@@ -344,8 +342,7 @@ fi
 
 yml_servers_name_get()
 {
-	local section="$1"
-   local name config
+	 local section="$1"
    config_get "name" "$section" "name" ""
    config_get "config" "$section" "config" ""
    if [ -n "$name" ] && [ "$config" = "$CONFIG_NAME" ]; then

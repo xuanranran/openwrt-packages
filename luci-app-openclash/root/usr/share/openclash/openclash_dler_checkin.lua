@@ -18,18 +18,18 @@ local function dler_checkin()
 	path = "/tmp/dler_checkin"
 	if token and email and passwd and enable == "1" then
 		checkin = string.format("curl -sL -H 'Content-Type: application/json' -d '{\"email\":\"%s\", \"passwd\":\"%s\", \"multiple\":\"%s\"}' -X POST https://dler.cloud/api/v1/checkin -o %s", email, passwd, multiple, path)
-		if fs.readfile(path) == "" or not fs.readfile(path) then
+		if not nixio.fs.access(path) then
 			luci.sys.exec(checkin)
 		else
-			if (os.time() - fs.mtime(path) > interval*3600+1) then
-				fs.unlink(path)
+			if fs.readfile(path) == "" or not fs.readfile(path) then
 				luci.sys.exec(checkin)
 			else
-				os.exit(0)
+				if (os.time() - fs.mtime(path) > interval*3600+1) then
+					luci.sys.exec(checkin)
+				else
+					os.exit(0)
+				end
 			end
-		end
-		if fs.readfile(path) == "" or not fs.readfile(path) then
-			fs.writefile(path, " ")
 		end
 		info = fs.readfile(path)
 		if info then
