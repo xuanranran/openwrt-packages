@@ -147,6 +147,8 @@ git clone --depth 1 -b openwrt-22.03 https://github.com/openwrt/luci openwrt_luc
 git clone --depth 1 https://github.com/lucikap/Brukamen Brukamen && mv -n Brukamen/luci-app-ua2f ./ ; rm -rf Brukamen
 git clone --depth 1 https://github.com/openwrt/packages openwrt_packages && mv -n openwrt_packages/net/shadowsocks-libev ./ ; rm -rf openwrt_packages
 git clone --depth 1 https://github.com/kenzok8/jell jell && mv -n jell/luci-app-bridge jell/vsftpd-alt ./ ; rm -rf jell
+git clone --depth 1 https://github.com/sbwml/openwrt_pkgs openwrt_pkgs && mv -n openwrt_pkgs/luci-app-gowebdav openwrt_pkgs/gowebdav ./ ; rm -rf openwrt_pkgs
+git clone --depth 1 https://github.com/mips171/luci-proto-modemmanager modemmanager && mv -n modemmanager/luci-proto-modemmanager ./ ; rm -rf modemmanager
 
 #svn export https://github.com/xiaoxifu64/immortalwrt/trunk/package/rooter/ext-rooter-basic
 
@@ -209,5 +211,7 @@ sed -i 's/	ip.neighbors/	luci.ip.neighbors/' luci-app-wifidog/luasrc/model/cbi/w
 #sed -i '65,73d' adguardhome/Makefile
 sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' transmission-web-control/Makefile
 rm -rf adguardhome/patches
+rm -rf LICENSE
+rm -rf README.md
 exit 0
 
