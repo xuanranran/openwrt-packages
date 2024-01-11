@@ -146,7 +146,7 @@ git clone --depth 1 https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add && mv -
 git clone --depth 1 https://github.com/Se7enMuting/Openwrt-Packages Se7enMuting && mv -n Se7enMuting/luci-app-control-speedlimit ./ ; rm -rf Se7enMuting
 git clone --depth 1 -b openwrt-22.03 https://github.com/openwrt/luci openwrt_luci && mv -n openwrt_luci/applications/luci-app-wireguard ./ ; rm -rf openwrt_luci
 git clone --depth 1 https://github.com/lucikap/Brukamen Brukamen && mv -n Brukamen/luci-app-ua2f ./ ; rm -rf Brukamen
-git clone --depth 1 https://github.com/openwrt/packages openwrt_packages && mv -n openwrt_packages/net/shadowsocks-libev ./ ; rm -rf openwrt_packages
+git clone --depth 1 https://github.com/openwrt/packages openwrt_packages && mv -n openwrt_packages/net/shadowsocks-libev openwrt_packages/utils/apk ./ ; rm -rf openwrt_packages
 git clone --depth 1 https://github.com/kenzok8/jell jell && mv -n jell/luci-app-bridge jell/vsftpd-alt ./ ; rm -rf jell
 git clone --depth 1 https://github.com/sbwml/openwrt_pkgs openwrt_pkgs && mv -n openwrt_pkgs/luci-app-gowebdav openwrt_pkgs/gowebdav ./ ; rm -rf openwrt_pkgs
 git clone --depth 1 https://github.com/mips171/luci-proto-modemmanager modemmanager && mv -n modemmanager/luci-proto-modemmanager ./ ; rm -rf modemmanager
