@@ -16,8 +16,8 @@ function mvdir() {
 mv -n `find $1/* -maxdepth 0 -type d` ./
 rm -rf $1
 }
-#git clone --depth 1 https://github.com/kenzo78/my-packages && mvdir my-packages
-git clone --depth 1 https://github.com/sbwml/luci-app-daed-next
+# git clone --depth 1 https://github.com/kenzo78/my-packages && mvdir my-packages
+# git clone --depth 1 https://github.com/sbwml/luci-app-daed-next
 git clone --depth 1 https://github.com/f8q8/luci-app-autoreboot
 git clone --depth 1 https://github.com/kiddin9/luci-app-dnsfilter
 git clone --depth 1 https://github.com/kiddin9/aria2
@@ -92,7 +92,7 @@ git clone --depth 1 https://github.com/kenzok8/wall && mv -n wall/* ./ ; rm -rf 
 git clone --depth 1 https://github.com/peter-tank/luci-app-fullconenat
 git clone --depth 1 https://github.com/sirpdboy/sirpdboy-package && mv -n sirpdboy-package/luci-app-dockerman ./ ; rm -rf sirpdboy-package
 git clone --depth 1 https://github.com/sundaqiang/openwrt-packages && mv -n openwrt-packages/luci-* ./; rm -rf openwrt-packages
-git clone --depth 1 https://github.com/zxlhhyccc/luci-app-v2raya
+git clone --depth 1 -b 18.06 https://github.com/zxlhhyccc/luci-app-v2raya
 git clone --depth 1 https://github.com/kenzok8/luci-theme-ifit ifit && mv -n ifit/luci-theme-ifit ./;rm -rf ifit
 git clone --depth 1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom infinityfreedom && mv -n infinityfreedom/luci-theme-infinityfreedom ./;rm -rf infinityfreedom
 git clone --depth 1 https://github.com/kenzok78/openwrt-minisign
