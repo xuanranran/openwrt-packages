@@ -42,7 +42,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         chmod +x .github/diy/${{matrix.target}}.sh
-        git clone -b ${{matrix.target}} https://github.com/xuanranran/lede-packages.git ${{matrix.target}}
+        git clone -b ${{matrix.target}} https://github.com/xuanranran/openwrt-packages.git ${{matrix.target}}
         cd ${{matrix.target}}
         git rm -r --cache * >/dev/null 2>&1 &
         rm -rf `find ./* -maxdepth 0 -type d ! -name "diy"` >/dev/null 2>&1
@@ -65,7 +65,7 @@ jobs:
         if git status --porcelain | grep .; then
           git add .
           git commit -am "update $(date '+%Y-%m-%d %H:%M:%S')"
-          git push --quiet "https://${{ secrets.ACCESS_TOKEN }}@github.com/xuanranran/lede-packages.git" HEAD:${{matrix.target}}
+          git push --quiet "https://${{ secrets.ACCESS_TOKEN }}@github.com/xuanranran/lede-package.git" HEAD:${{matrix.target}}
         else
           echo "nothing to commit"
           exit 0
