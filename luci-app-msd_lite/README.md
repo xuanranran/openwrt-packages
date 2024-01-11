@@ -1,1 +1,0 @@
-# msd_lite's lua luci app, use it with msd_lite package from ImmortalWrt.

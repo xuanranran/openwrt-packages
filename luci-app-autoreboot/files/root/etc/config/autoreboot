@@ -1,4 +1,0 @@
-config login
-	option enable '1'
-	option minute '0'
-	option hour '5'
