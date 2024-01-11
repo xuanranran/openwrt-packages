@@ -95,8 +95,8 @@ git clone --depth 1 https://github.com/zxlhhyccc/luci-app-v2raya
 git clone --depth 1 https://github.com/kenzok8/luci-theme-ifit ifit && mv -n ifit/luci-theme-ifit ./;rm -rf ifit
 git clone --depth 1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom infinityfreedom && mv -n infinityfreedom/luci-theme-infinityfreedom ./;rm -rf infinityfreedom
 git clone --depth 1 https://github.com/kenzok78/openwrt-minisign
-git clone --depth 1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon
-git clone --depth 1 -b 18.06 https://github.com/jerrykuku/luci-app-argon-config
+git clone --depth 1 https://github.com/kenzok78/luci-theme-argone
+git clone --depth 1 https://github.com/kenzok78/luci-app-argone-config
 git clone --depth 1 https://github.com/kenzok78/luci-app-adguardhome
 git clone --depth 1 https://github.com/gngpp/luci-theme-design
 git clone --depth 1 https://github.com/gngpp/luci-app-design-config
@@ -142,7 +142,7 @@ git clone --depth 1 https://github.com/x-wrt/packages x-wrt && mv -n x-wrt/net/n
 git clone --depth 1 https://github.com/x-wrt/luci x-wr && mv -n x-wr/applications/luci-app-nft-qos ./ ; rm -rf x-wr
 git clone --depth 1 https://github.com/Ysurac/openmptcprouter-feeds openmptcprouter-feeds && mv -n openmptcprouter-feeds/luci-app-iperf ./ ; rm -rf openmptcprouter-feeds
 git clone --depth 1 https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add && mv -n OpenWrt-Add/luci-app-irqbalance ./ ; rm -rf OpenWrt-Add
-git clone --depth 1 https://github.com/sirpdboy/sirpdboy-package irpdboy-package && mv -n irpdboy-package/luci-app-control-speedlimit ./ ; rm -rf irpdboy-package
+git clone --depth 1 https://github.com/Se7enMuting/Openwrt-Packages Se7enMuting && mv -n Se7enMuting/luci-app-control-speedlimit ./ ; rm -rf Se7enMuting
 git clone --depth 1 -b openwrt-22.03 https://github.com/openwrt/luci openwrt_luci && mv -n openwrt_luci/applications/luci-app-wireguard ./ ; rm -rf openwrt_luci
 git clone --depth 1 https://github.com/lucikap/Brukamen Brukamen && mv -n Brukamen/luci-app-ua2f ./ ; rm -rf Brukamen
 git clone --depth 1 https://github.com/openwrt/packages openwrt_packages && mv -n openwrt_packages/net/shadowsocks-libev ./ ; rm -rf openwrt_packages
