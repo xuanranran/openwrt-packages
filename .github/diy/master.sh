@@ -212,6 +212,8 @@ sed -i 's/	ip.neighbors/	luci.ip.neighbors/' luci-app-wifidog/luasrc/model/cbi/w
 #sed -i '65,73d' adguardhome/Makefile
 sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' transmission-web-control/Makefile
 rm -rf adguardhome/patches
+rm -rf firewall
+rm -rf firewall4
 rm -rf LICENSE
 rm -rf README.md
 exit 0
