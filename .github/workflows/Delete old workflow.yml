@@ -36,7 +36,7 @@ jobs:
           retain_days: 0
           keep_minimum_runs: 0
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
     - name: Delete Artifacts
       uses: geekyeggo/delete-artifact@v2
