@@ -1,6 +1,4 @@
-# LuCI Theme Infinity Freedom
-# 
-#
+# LuCI Theme Ifit Freedom
 # Licensed under the Apache License v2.0
 # http://www.apache.org/licenses/LICENSE-2.0
 
@@ -10,8 +8,7 @@ THEME_NAME:=ifit
 THEME_TITLE:=ifit
 
 PKG_NAME:=luci-theme-$(THEME_NAME)
-PKG_VERSION:=1.5.2
-
+PKG_VERSION:=1.6
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -21,7 +18,7 @@ define Package/luci-theme-$(THEME_NAME)
   CATEGORY:=LuCI
   SUBMENU:=4. Themes
   DEPENDS:=+libc
-  TITLE:=Ifit Theme
+  TITLE:=Ifit by kenzo
   URL:=https://github.com/kenzok8/luci-theme-ifit
   PKGARCH:=all
 endef
