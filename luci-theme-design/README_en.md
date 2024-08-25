@@ -3,16 +3,16 @@
     LuCI design theme for OpenWrt
   </h1>
 <a href="/LICENSE">
-    <img src="https://img.shields.io/github/license/gngpp/luci-theme-design?style=flat&a=1" alt="">
+    <img src="https://img.shields.io/github/license/xuanranran/luci-theme-design?style=flat&a=1" alt="">
   </a>
-  <a href="https://github.com/gngpp/luci-theme-design/pulls">
+  <a href="https://github.com/xuanranran/luci-theme-design/pulls">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="">
-  </a><a href="https://github.com/gngpp/luci-theme-design/issues/new">
+  </a><a href="https://github.com/xuanranran/luci-theme-design/issues/new">
     <img src="https://img.shields.io/badge/Issues-welcome-brightgreen.svg?style=flat">
-  </a><a href="https://github.com/gngpp/luci-theme-design/releases">
-    <img src="https://img.shields.io/github/release/gngpp/luci-theme-design.svg?style=flat">
-  </a><a href="hhttps://github.com/gngpp/luci-theme-design/releases">
-    <img src="https://img.shields.io/github/downloads/gngpp/luci-theme-design/total?style=flat">
+  </a><a href="https://github.com/xuanranran/luci-theme-design/releases">
+    <img src="https://img.shields.io/github/release/xuanranran/luci-theme-design.svg?style=flat">
+  </a><a href="hhttps://github.com/xuanranran/luci-theme-design/releases">
+    <img src="https://img.shields.io/github/downloads/xuanranran/luci-theme-design/total?style=flat">
   </a>
 </div>
 <br>
@@ -23,9 +23,9 @@
 
 ### luci-theme-design is an OpenWrt LuCI theme for immersive WebApp experience and optimization on mobile and PC
 - **luci-theme-design** based on luci-theme-neobird, for [lede](https://github.com/coolsnowwolf/lede) / [OpenWrt](https://github.com/openwrt/ openwrt)
-- The default branch only supports the lua version of the lede source code. If you use openwrt 21/22, please pull the [js](https://github.com/gngpp/luci-theme-design/tree/js) version (development stage).
+- The default branch only supports the lua version of the lede source code. If you use openwrt 21/22, please pull the [js](https://github.com/xuanranran/luci-theme-design/tree/js) version (development stage).
 
-- You can define some settings using [plugin](https://github.com/gngpp/luci-app-design-config)
+- You can define some settings using [plugin](https://github.com/xuanranran/luci-theme-design/tree/config)
    - Support changing theme dark/light mode
    - Support show/hide navigation bar
    - Support replacing commonly used proxy icons
@@ -64,7 +64,7 @@
 ### Compile
 
 ```
-git clone https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
+git clone https://github.com/xuanranran/luci-theme-design.git package/luci-theme-design
 make menuconfig # choose LUCI->Theme->Luci-theme-design
 make V=s
 ```
