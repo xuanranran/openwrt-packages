@@ -26,7 +26,7 @@
 - main支持lede源码的lua版本
 - js分支开始由[papagaye744](https://github.com/papagaye744)维护
 
-- 你可以使用[插件](https://github.com/xuanranran/luci-theme-design/tree/config)定义一些设置
+- 你可以使用[插件](https://github.com/xuanranran/luci-app-design-config)定义一些设置
   - 支持更改主题深色/浅色模式
   - 支持显示/隐藏导航栏
   - 支持更换常用的代理图标

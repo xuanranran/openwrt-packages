@@ -25,7 +25,7 @@
 - **luci-theme-design** based on luci-theme-neobird, for [lede](https://github.com/coolsnowwolf/lede) / [OpenWrt](https://github.com/openwrt/ openwrt)
 - The default branch only supports the lua version of the lede source code. If you use openwrt 21/22, please pull the [js](https://github.com/xuanranran/luci-theme-design/tree/js) version (development stage).
 
-- You can define some settings using [plugin](https://github.com/xuanranran/luci-theme-design/tree/config)
+- You can define some settings using [plugin](https://github.com/xuanranran/luci-app-design-config)
    - Support changing theme dark/light mode
    - Support show/hide navigation bar
    - Support replacing commonly used proxy icons
