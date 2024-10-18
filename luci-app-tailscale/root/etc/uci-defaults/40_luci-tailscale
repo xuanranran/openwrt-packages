@@ -2,10 +2,8 @@
 
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@tailscale[-1]
-	add ucitrack tailscale
-	set ucitrack.@tailscale[-1].init=tailscale
 	commit ucitrack
 EOF
 
-rm -rf /tmp/luci-*
+rm -f /tmp/luci-indexcache
 exit 0
