@@ -6,7 +6,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=CloudDrive2
+PKG_NAME:=cloudDrive2
 PKG_VERSION:=0.8.5
 PKG_RELEASE=1
 
@@ -34,7 +34,7 @@ define Package/clouddrive2
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=@(arm||aarch64||x86_64) +fuse-utils +fuse3-utils
-  TITLE:=CloudDrive2
+  TITLE:=cloudDrive2
 endef
 
 define Package/clouddrive2/description
@@ -66,5 +66,5 @@ define Package/clouddrive2/install
 	cp -rf $(PKG_BUILD_DIR)/clouddrive-2-linux-$(PKG_ARCH)-$(PKG_VERSION)/wwwroot $(1)/usr/share/clouddrive2/
 endef
 
-$(eval $(call Download,$(PKG_NAME)))
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call Download,clouddrive2))
+$(eval $(call BuildPackage,clouddrive2))
