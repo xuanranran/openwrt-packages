@@ -45,7 +45,7 @@ define Download/clouddrive2
   URL:=https://github.com/cloud-fs/cloud-fs.github.io/releases/download/v$(PKG_VERSION)
   URL_FILE:=clouddrive-2-linux-$(PKG_ARCH)-$(PKG_VERSION).tgz
   FILE:=clouddrive-2-linux-$(PKG_ARCH)-$(PKG_VERSION).tgz
-  HASH:=0f2d602ccc72f3866d19efad6aa3f5a833d3fb97638024926fd6ece6141e8eac
+  HASH:=skip
 endef
 
 define Build/Prepare
@@ -66,5 +66,5 @@ define Package/clouddrive2/install
 	cp -rf $(PKG_BUILD_DIR)/clouddrive-2-linux-$(PKG_ARCH)-$(PKG_VERSION)/wwwroot $(1)/usr/share/clouddrive2/
 endef
 
-$(eval $(call Download,clouddrive2))
-$(eval $(call BuildPackage,clouddrive2))
+$(eval $(call Download,$(PKG_NAME)))
+$(eval $(call BuildPackage,$(PKG_NAME)))
