@@ -122,7 +122,6 @@ function Getwallpaper(themeDir, num) {
                bgUrl = currentBg.url;
            } 
     } else {
-	   
                const picurl = ubus.call("luci.kucat", "get_url") ?? {};
                if (picurl && picurl.url) {
                     return { url: picurl.url };
@@ -134,7 +133,6 @@ function Getwallpaper(themeDir, num) {
 let bg_url_result = Getwallpaper(resource + "/background/", background);
 let bg_url = bg_url_result.url;
 let bg_lock = bg_url;
-
 
 let bk_use = "background: rgba(var(--primary-rgbbody),1)";
 let loginbk_use = "background: linear-gradient(0deg, rgba(var(--primary-rgbm), 1) 0%, rgba(var(--primary-rgbbody), 1) 100%); display: block;";
@@ -160,7 +158,6 @@ if (dayword == "1") {
         if (tmpshowword && tmpshowword.word) {
             showword = tmpshowword.word;
         }
-  
 }
 
 %}
@@ -200,25 +197,21 @@ if (dayword == "1") {
     
     <meta name="msapplication-config" content="{{ media }}/browserconfig.xml">
     <meta name="msapplication-TileImage" content="{{ media }}/logo.png">
-    <link rel="stylesheet" href="{{ media }}/css/style.css{# ?v=PKG_VERSION #}">
+    <link rel="stylesheet" href="{{ media }}/css/style.css">
 
     <noscript>
-        <link rel="stylesheet" href="{{ media }}/css/style.css{# ?v=PKG_VERSION #}">
+        <link rel="stylesheet" href="{{ media }}/css/style.css">
     </noscript>
-      
     <style title="text/css">
-        
     :root {
         --primary-rgbm: {{ primary_rgbm }};--primary-rgbm-ts: {{ primary_rgbm_ts }};--primary-rgbs: {{ primary_rgbs }};--primary-rgbs-ts: {{ primary_rgbs_ts }};
         --font-d: {{ fontd }};--font-z: {{ fontz }};--font-x: {{ fontx }};--ufilter: {{ ufilter }};
         {% if (automode == 'dark'): %}
             --menu-hover-color: #f5f5f5f5;--menu-fontcolor: #ddd;--primarytextcolor: #bbb;--primary-title-color: #ccc;--menu-color: #ddd;--title-color: #ddd;--body-color: #bbb;--menu-item-titlebg-color: rgba(var(--primary-rgbm),0.5);--body-hover-bgcolor: rgba(255,255,255,0.05);
             --primary-rgbbody:33,45,60;--inputtext-color: #ccc;  --inputborder-color: rgba(255,255,255,0.2);  --input-bgcolor: rgba(50,50,50,0.2);  --input-boxcolor: rgba(255,255,255,0.15);  --input-boxhovercolor: rgba(255,255,255,0.22);  --input-checkcolor: rgba(255,255,255,0.7);
-
         {% else %}
             --menu-item-titlebg-color: rgba(var(--primary-rgbm),0.22);--body-hover-bgcolor: rgba(50,50,50,0.05);--menu-hover-color: #fff;--menu-fontcolor: #f5f5f5f5;--primarytextcolor: #677087;--primary-title-color: #4d4d5d;--menu-color: #eee;--title-color: #65656b;--body-color: #65656b;
             --primary-rgbbody:244,245,247;--inputtext-color: #4d5256;  --inputborder-color: rgba(0,0,0,0.2);  --input-bgcolor: rgba(255,255,255,0.6);  --input-boxcolor: rgba(0,0,0,0.12);  --input-boxhovercolor: rgba(0,0,0,0.22);  --input-checkcolor: rgba(var(--primary-rgbm),1);
-        
 	{% endif %}
         {% if (bgqs == '0'): %}
             --bgqs-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
@@ -248,9 +241,8 @@ if (dayword == "1") {
 <script src="{{ media }}/js/style.js"></script>
 </head>
 <body
-	
 class="lang_{{ dispatcher.lang }} {{ ctx.authsession ? 'logged-in' : '' }} {{ length(ctx.path) ? `node-${join('-', ctx.path)}` : 'node-main-login' }}"
- data-page="{{ entityencode(join('-', ctx.path), true) }}"  style="{{ bk_use }};" {% if (mode != 'auto'): %}data-theme="{{ automode }}"{% endif %}
+ data-page="{{ entityencode(join('-', ctx.path), true) }}"  style="{{ bk_use }};" {% if (mode != 'auto'): %}data-theme="{{ mode }}"{% endif %}
 >
 
     <header class="bar-primary">

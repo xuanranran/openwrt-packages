@@ -16,14 +16,23 @@
 kucat='kucat'
 [ -s "/etc/config/advancedplus" ] && kucat='advancedplus'
 background="$(uci -q get $kucat.@basic[0].background || echo '0')"
-PIC_CACHE="/var/kucat_pic_${background}.cache"
-PIC_PATH="/www/luci-static/kucat/img/down${background}.jpg"
+
+PIC_TMP_DIR="/var/kucat"
+PIC_LINK_DIR="/www/luci-static/kucat/img"
+PIC_CACHE="${PIC_TMP_DIR}/kucat_pic_${background}.cache"
+PIC_TMP_PATH="${PIC_TMP_DIR}/down${background}.jpg"
+PIC_LINK_PATH="${PIC_LINK_DIR}/down${background}.jpg"
+
 PIC_RE_URL="/luci-static/kucat/img/down${background}.jpg"
 PIC_DF_URL="/luci-static/kucat/img/bg1.jpg"
 PIC_LOCK="/var/lock/kucat_lock_pic.lock"
+
 LANG=$(uci get luci.main.lang 2>/dev/null || echo "zh_cn")
-WORD_CACHE="/var/kucat_daily_word_$LANG.cache"
-WORD_LOCK="/var/lock/kucat_daily_word.lock"
+WORD_CACHE="${PIC_TMP_DIR}/kucat_daily_word_$LANG.cache"
+WORD_LOCK="${PIC_TMP_DIR}/lock/kucat_daily_word.lock"
+
+mkdir -p "$PIC_LINK_DIR" "$PIC_TMP_DIR"
+chmod 755 "$PIC_LINK_DIR" "$PIC_TMP_DIR" "$PIC_TMP_PATH"
 
 # 获取每日一言
 fetch_daily_word() {
@@ -164,13 +173,26 @@ try_down_pic() {
     if flock -n 200 >/dev/null 2>&1; then
         local bgurl="$(fetch_PicUrl)"
         if [ -n "$bgurl" ]; then
-            rm -rf "$PIC_PATH"
-            curl -kLfsm 3 "$bgurl" -o "$PIC_PATH" > /dev/null 2>&1
-            date +%Y%m%d > "$PIC_CACHE"
+             rm -rf "$PIC_TMP_PATH" "$PIC_LINK_PATH"
+	     local tmp_file="${PIC_TMP_PATH}.$$.tmp"
+            if curl -kLfsm 3 "$bgurl" -o "${tmp_file}" > /dev/null 2>&1; then
+		if [ -s "$tmp_file" ]; then
+                     mv "${tmp_file}" "${PIC_TMP_PATH}"
+                     chmod 644 "${PIC_TMP_PATH}"
+                     date +%Y%m%d > "$PIC_CACHE"
+                     ln -sf "$PIC_TMP_PATH" "$PIC_LINK_PATH"
+		fi
+            else
+                rm -f "${PIC_PATH}.tmp"
+            fi
         fi
         flock -u 200 >/dev/null 2>&1
     fi
-    [ -s "$PIC_PATH" ] && echo -ne $PIC_RE_URL || echo -ne $PIC_DF_URL
+    if [ -L "$PIC_LINK_PATH" ] && [ -e "$PIC_LINK_PATH" ]; then
+        echo -ne $PIC_RE_URL
+    else
+        echo -ne $PIC_DF_URL
+    fi
 }
 
 case "$1" in
