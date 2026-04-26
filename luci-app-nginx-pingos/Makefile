@@ -80,6 +80,9 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/share/rpcd/acl.d
 	cp -pR ./root/usr/share/rpcd/acl.d/* $(1)/usr/share/rpcd/acl.d
 
+	$(INSTALL_DIR) $(1)/usr/share/ucitrack
+	cp -pR ./root/usr/share/ucitrack/* $(1)/usr/share/ucitrack
+
 	$(INSTALL_DIR) $(1)/usr/share/pingos
 	cp -pR $(PKG_INSTALL_DIR)/usr/share/pingos/conf $(1)/usr/share/pingos
 	$(INSTALL_DATA) ./root/resource/conf-template/nginx.conf $(1)/usr/share/pingos/conf/nginx.conf
