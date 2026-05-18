@@ -5,52 +5,16 @@ local m, s, o, o1
 local fs = require "nixio.fs"
 local uci = require "luci.model.uci".cursor()
 
-local configpath = uci:get("AdGuardHome", "AdGuardHome", "configpath") or "/etc/AdGuardHome.yaml"
-local workdir    = uci:get("AdGuardHome", "AdGuardHome", "workdir")    or "/etc/AdGuardHome"
+local workdir = uci:get("AdGuardHome", "AdGuardHome", "workdir") or "/etc/AdGuardHome"
 
 m = Map("AdGuardHome", translate("工具与任务"))
-m.description = translate("一次性动作与计划任务：GFW 列表、改密、备份、Crontab、下载源")
+m.description = translate("一次性动作与计划任务：改密、备份、Crontab、下载源")
 
 m:section(SimpleSection).template = "AdGuardHome/head"
 
 s = m:section(NamedSection, "AdGuardHome", "AdGuardHome", "")
 s.anonymous = true
 s.addremove = false
-
--- GFW list ------------------------------------------------------
-local gfw_status
-if fs.access(configpath) and luci.sys.call("grep -q 'programaddstart' " .. configpath .. " 2>/dev/null") == 0 then
-	gfw_status = translate("Added")
-else
-	gfw_status = translate("Not added")
-end
-
-o = s:option(Value, "gfwupstream", translate("Gfwlist upstream dns server"),
-	translate("Gfwlist domain upstream dns service") .. " (" .. gfw_status .. ")")
-o.default = "tcp://208.67.220.220:5353"
-o.datatype = "string"
-o.rmempty = true
-
-o = s:option(Button, "gfwdel", translate("Del gfwlist"))
-o.inputtitle = translate("删除")
-o.inputstyle = "remove"
-o.description = gfw_status
-o.write = function()
-	luci.sys.exec("sh /usr/share/AdGuardHome/gfw2adg.sh del 2>&1")
-	-- 脚本内部已 uci commit；丢弃 LuCI form parse 产生的浮动 changes
-	uci:revert("AdGuardHome")
-	luci.http.redirect(luci.dispatcher.build_url("admin", "services", "AdGuardHome", "tools"))
-end
-
-o = s:option(Button, "gfwadd", translate("Add gfwlist"))
-o.inputtitle = translate("添加")
-o.inputstyle = "apply"
-o.description = gfw_status
-o.write = function()
-	luci.sys.exec("sh /usr/share/AdGuardHome/gfw2adg.sh 2>&1")
-	uci:revert("AdGuardHome")
-	luci.http.redirect(luci.dispatcher.build_url("admin", "services", "AdGuardHome", "tools"))
-end
 
 -- Change password ------------------------------------------------
 o = s:option(Value, "hashpass", translate("Change browser management password"),
@@ -125,7 +89,6 @@ o:value("autoupdate",      translate("Auto update core"))
 o:value("cutquerylog",     translate("Auto tail querylog"))
 o:value("cutruntimelog",   translate("Auto tail runtime log"))
 o:value("autohost",        translate("Auto update ipv6 hosts and restart adh"))
-o:value("autogfw",         translate("Auto update gfwlist and restart adh"))
 o.widget = "checkbox"
 o.default = nil
 o.optional = false
