@@ -26,7 +26,6 @@ if [ "$1" = "del" ]; then
 	exit 0
 fi
 
-local gfwupstream
 gfwupstream="$(uci get AdGuardHome.AdGuardHome.gfwupstream 2>/dev/null)"
 if [ -z "$gfwupstream" ]; then
 	gfwupstream="tcp://208.67.220.220:5353"
@@ -54,9 +53,48 @@ if [ ! -s /tmp/gfwlist.txt ]; then
 	exit 1
 fi
 
-base64 -d < /tmp/gfwlist.txt > /tmp/gfwlist_decoded.txt 2>/dev/null
+# Decode base64. Prefer system tools, fall back to embedded lua decoder
+# because OpenWrt/ImmortalWrt minimal builds often lack base64 / openssl CLIs.
+decode_b64() {
+	if command -v base64 >/dev/null 2>&1; then
+		base64 -d < "$1" > "$2" 2>/dev/null && return 0
+	fi
+	if command -v openssl >/dev/null 2>&1; then
+		openssl base64 -d -A < "$1" > "$2" 2>/dev/null && return 0
+	fi
+	if command -v lua >/dev/null 2>&1; then
+		lua - "$1" "$2" <<'LUAEOF'
+local f = assert(io.open(arg[1], "rb"))
+local data = f:read("*a"):gsub("%s+", "")
+f:close()
+local b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+local out, buf, bits = {}, 0, 0
+for c in data:gmatch(".") do
+	if c == "=" then break end
+	local i = b:find(c, 1, true)
+	if i then
+		buf = buf * 64 + (i - 1)
+		bits = bits + 6
+		if bits >= 8 then
+			bits = bits - 8
+			local div = 2 ^ bits
+			out[#out + 1] = string.char(math.floor(buf / div))
+			buf = buf % div
+		end
+	end
+end
+local o = assert(io.open(arg[2], "wb"))
+o:write(table.concat(out))
+o:close()
+LUAEOF
+		[ -s "$2" ] && return 0
+	fi
+	return 1
+}
+
+decode_b64 /tmp/gfwlist.txt /tmp/gfwlist_decoded.txt
 if [ $? -ne 0 ] || [ ! -s /tmp/gfwlist_decoded.txt ]; then
-	echo "错误：gfwlist 解码失败"
+	echo "错误：gfwlist 解码失败 (系统需要 base64 / openssl / lua 之一)"
 	rm -f /tmp/gfwlist.txt
 	exit 1
 fi
@@ -115,24 +153,21 @@ BEGIN {
 	finl = fin
 
 	if (white == 0)
-		print "  - [/." fin "/]" upst
+		print "    - \"[/." fin "/]" upst "\""
 	else
-		print "  - [/." fin "/]#"
+		print "    - \"[/." fin "/]#\""
 }
 END {
-	print "  - [/programaddend/]#"
+	print "    - \"[/programaddend/]#\""
 }' /tmp/gfwlist_decoded.txt > /tmp/adguard.list
 
 rm -f /tmp/gfwlist.txt /tmp/gfwlist_decoded.txt
 
-grep -q "programaddstart" "$configpath"
-if [ $? -eq 0 ]; then
-	sed -i '/programaddstart/,/programaddend/d' "$configpath"
-	cat /tmp/adguard.list >> "$configpath"
-else
-	sed -i '1i\  - [/programaddstart/]#' /tmp/adguard.list
-	sed -i '/^upstream_dns:/r /tmp/adguard.list' "$configpath"
-fi
+# 总是先清除旧区段，再插入新区段（确保幂等）
+sed -i '/programaddstart/,/programaddend/d' "$configpath"
+sed -i '1i\    - "[/programaddstart/]#"' /tmp/adguard.list
+# AGH yaml: upstream_dns 在 dns: 下，带 2 空格缩进；兼容老版顶层格式
+sed -i '/^[[:space:]]*upstream_dns:[[:space:]]*$/r /tmp/adguard.list' "$configpath"
 
 checkmd5 "$2"
 rm -f /tmp/adguard.list

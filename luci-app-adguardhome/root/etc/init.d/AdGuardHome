@@ -514,7 +514,7 @@ start_service() {
 	[ -n "$group" ] && procd_set_param group "$group"
 	[ "$gc" != "0" ] && procd_set_param env GOGC="$gc"
 	[ "$maxprocs" != "0" ] && procd_set_param env GOMAXPROCS="$maxprocs"
-	[ "$memlimit" != "0" ] && procd_set_param env GOMEMLIMIT="$memlimit"
+	[ -n "$memlimit" ] && [ "$memlimit" != "0" ] && procd_set_param env GOMEMLIMIT="${memlimit}MiB"
 
 	config_get jail_mount $CONFIGURATION jail_mount ""
 	if [ -n "$jail_mount" ]; then
