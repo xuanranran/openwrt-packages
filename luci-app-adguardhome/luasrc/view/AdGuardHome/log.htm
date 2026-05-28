@@ -32,12 +32,12 @@
 	color: #cfd6df;
 	font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 	font-size: 11.5px;
-	line-height: 1.55;
+	line-height: 1.35 !important;
 	white-space: pre-wrap;
 	word-break: break-all;
 	width: 100%;
 }
-.adg-log-pane .adg-line { padding: 1px 4px; border-radius: 3px; display: block; }
+.adg-log-pane .adg-line { padding: 0 4px; border-radius: 3px; display: block; }
 .adg-log-pane .adg-info { color: #cfd6df; }
 .adg-log-pane .adg-warn { color: #e8b95a; }
 .adg-log-pane .adg-error { color: #ea7878; background: rgba(234,120,120,.06); }
@@ -50,7 +50,7 @@ body.dark .adg-log-pane { border-color: rgba(255,255,255,.1); }
 	<label><input type="checkbox" value="localtime" onclick="return chlogtime()" checked><%:localtime%></input></label>
 	<%end%>
 </div>
-<pre id="cbid.logview.1.conf" class="adg-log-pane"></pre>
+<pre id="cbid.logview.1.conf" class="adg-log-pane" style="line-height:1.35 !important"></pre>
 <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;">
 	<input type="button" class="btn cbi-button cbi-button-apply" id="apply_update_button" value="<%:dellog%>" onclick="return apply_del_log()"/>
 	<input type="button" class="btn cbi-button cbi-button-apply" value="<%:download log%>" onclick="return download_log()"/>
@@ -69,7 +69,7 @@ function hlLine(ln) {
 	return '<span class="adg-line ' + cls + '">' + ln.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span>';
 }
 function hlLines(text) {
-	return text.split('\n').map(hlLine).join('\n');
+	return text.split('\n').map(hlLine).join('');
 }
 
 function createAndDownloadFile(fileName, content) {
@@ -109,7 +109,7 @@ function chlogtime(){
 }
 function reverselog(){
 	var lv = document.getElementById('cbid.logview.1.conf');
-	lv.innerHTML = lv.textContent.split('\n').reverse().map(hlLine).join('\n');
+	lv.innerHTML = lv.textContent.split('\n').reverse().map(hlLine).join('');
 	if (islogreverse){
 	islogreverse=false;
 	}else{
